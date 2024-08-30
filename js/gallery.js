@@ -82,7 +82,7 @@ const createList = ({original, preview, description}) => {
          const img = el("img", {
             className: "gallery-image", 
             src: preview, 
-            "data-source": original, 
+            srcset: original, 
             alt: description 
         });
         
@@ -99,6 +99,8 @@ const createList = ({original, preview, description}) => {
     //wywolanie odpowiedniej ilosci obiektow
     images.forEach(image => createList(image));
 
+    let instance;
+
     //delegacja do dużych formatów obrazów
     gallery.addEventListener("click", event => {
         event.preventDefault();
@@ -106,16 +108,29 @@ const createList = ({original, preview, description}) => {
         const clickedPic = event.target;
         console.log(clickedPic.nodeName);
     
-        if (clickedPic.nodeName === "IMG") {
-            const largeImageURL = clickedPic.dataset.source; // Uzyskanie linku do dużego obrazu
-            console.log(largeImageURL);
 
+        if (clickedPic.nodeName === "IMG") {
+
+            const largeImageURL = clickedPic.srcset; // Uzyskanie linku do dużego obrazu
+            console.log(largeImageURL);
+            
+            //sprawdzanie czy instance czy istnieje instancja jesli tak to ja zamyka
+            if(instance) {
+                    instance.close();
+                }
+            
             // Tworzenie okna modalnego z dużym obrazem
-            const instance = basicLightbox.create(`<img src="${largeImageURL}" alt="Large Image" style="width: 100%; height: auto;">`);
-    
+            instance = basicLightbox.create(`<img src="${largeImageURL}" alt="Large Image" style="width: 100%; height: auto;">`);
             instance.show();
-        }
+        } 
     });
+    
+    //zamykanie klawiszem tutaj escape
+    document.addEventListener("keydown", e => {
+        if(e.key === "Escape" && instance.visible()) {
+            instance.close();
+        }
+    })
 
     
 
