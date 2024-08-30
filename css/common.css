@@ -1,0 +1,21 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 5rem;
+}
+.gallery-image {
+    width: 350px;
+    height: auto;
+}
+.gallery-item {
+    list-style-type: none;
+}
+.gallery-link {
+    display: block;
+}
+body{
+    background-color: rgb(237, 221, 224);
+}
