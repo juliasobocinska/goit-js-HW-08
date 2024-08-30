@@ -96,7 +96,7 @@ const createList = ({original, preview, description}) => {
         return list;
     };
 
-    //przypisanie nazw obrazom
+    //wywolanie odpowiedniej ilosci obiektow
     images.forEach(image => createList(image));
 
     //delegacja do dużych formatów obrazów
